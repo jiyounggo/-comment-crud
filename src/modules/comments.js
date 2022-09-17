@@ -1,5 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import {
+  createPromiseSaga,
+  createPromiseSagaByID,
   handleAsyncActions,
   handleAsyncActionsById,
   reducerUtils,
@@ -32,49 +34,10 @@ export const deleteComment = (id) => ({
   meta: id,
 });
 
-function* getCommentsSaga() {
-  const type = GET_COMMENTS;
-
-  try {
-    const comments = yield call(); // TODO api 연동
-    yield put({ type, payload: comments });
-  } catch (e) {
-    yield put({ type: `${type}_${ERROR}`, error: true, payload: e });
-  }
-}
-
-function* saveCommentSaga() {
-  const type = SAVE_COMMENT;
-
-  try {
-    const comment = yield call(); // TODO api 연동 & 통신 결과값 확인 후 수정 예정
-    yield put({ type, payload: comment });
-  } catch (e) {
-    yield put({ type: `${type}_${ERROR}`, error: true, payload: e });
-  }
-}
-
-function* updateCommentSaga() {
-  const type = UPDATE_COMMENT;
-
-  try {
-    const comment = yield call(); // TODO api 연동 & 통신 결과값 확인 후 수정 예정
-    yield put({ type, payload: comment });
-  } catch (e) {
-    yield put({ type: `${type}_${ERROR}`, error: true, payload: e });
-  }
-}
-
-function* deleteCommentSaga() {
-  const type = DELETE_COMMENT;
-
-  try {
-    const id = yield call(); // TODO api 연동 & 통신 결과값 확인 후 수정 예정
-    yield put({ type, payload: id });
-  } catch (e) {
-    yield put({ type: `${type}_${ERROR}`, error: true, payload: e });
-  }
-}
+const getCommentsSaga = createPromiseSaga("GET_COMMENTS", () => {}); // TODO api 연동 & 통신 결과값 확인 후 수정 예정
+const saveCommentSaga = createPromiseSagaByID("SAVE_COMMENT", () => {}); // TODO api 연동 & 통신 결과값 확인 후 수정 예정
+const updateCommentSaga = createPromiseSagaByID("UPDATE_COMMNET", () => {}); // TODO api 연동 & 통신 결과값 확인 후 수정 예정
+const deleteCommentSaga = createPromiseSagaByID("DELETE_COMMENT", () => {}); // TODO api 연동 & 통신 결과값 확인 후 수정 예정
 
 export function* commentsSaga() {
   yield takeEvery(GET_COMMENTS, getCommentsSaga);
