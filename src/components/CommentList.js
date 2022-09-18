@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function CommentList({ comments, onDelete }) {
-  const updateHandler = (e) => {};
-
+function CommentList({ comments, onDelete, onSetTarget }) {
   return comments.map((comment, key) => (
     <Comment key={key}>
       <img src={comment.profile_url} alt="" />
@@ -15,7 +13,7 @@ function CommentList({ comments, onDelete }) {
       <Content>{comment.content}</Content>
 
       <Button>
-        <a onClick={updateHandler}>수정</a>
+        <a onClick={() => onSetTarget(comment)}>수정</a>
         <a onClick={() => onDelete(comment.id)}>삭제</a>
       </Button>
 

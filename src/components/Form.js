@@ -1,24 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-function Form({ onSave, onUpdate }) {
-  const [inputs, setInputs] = useState(initialInputs);
+function Form({ target, onSave, onUpdate, setTarget }) {
   const handleOnChange = ({ target: { name, value } }) => {
-    setInputs({ ...inputs, [name]: value });
+    setTarget({ ...target, [name]: value });
   };
   const submitHandler = (e) => {
     e.preventDefault();
 
-    onSave(inputs);
-    //onUpdate({...inputs, id})
+    target.id ? onUpdate(target) : onSave(target);
   };
+
   return (
     <FormStyle>
       <form onSubmit={submitHandler}>
         <input
           type="text"
           name="profile_url"
-          value={inputs.profile_url}
+          value={target.profile_url}
           onChange={handleOnChange}
           placeholder="https://picsum.photos/id/1/50/50"
           required
@@ -27,7 +26,7 @@ function Form({ onSave, onUpdate }) {
         <input
           type="text"
           name="author"
-          value={inputs.author}
+          value={target.author}
           onChange={handleOnChange}
           placeholder="작성자"
         />
@@ -35,7 +34,7 @@ function Form({ onSave, onUpdate }) {
         <textarea
           name="content"
           placeholder="내용"
-          value={inputs.content}
+          value={target.content}
           onChange={handleOnChange}
           required
         ></textarea>
@@ -43,7 +42,7 @@ function Form({ onSave, onUpdate }) {
         <input
           type="text"
           name="createdAt"
-          value={inputs.createdAt}
+          value={target.createdAt}
           onChange={handleOnChange}
           placeholder="2020-05-30"
           required
@@ -79,10 +78,3 @@ const FormStyle = styled.div`
     cursor: pointer;
   }
 `;
-
-const initialInputs = {
-  profile_url: "",
-  author: "",
-  content: "",
-  createdAt: "",
-};
