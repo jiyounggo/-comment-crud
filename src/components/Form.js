@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const FormStyle = styled.div`
@@ -24,22 +25,61 @@ const FormStyle = styled.div`
   }
 `;
 
-function Form() {
+const initialFormState = {
+  profile_url: "",
+  author: "",
+  content: "",
+  createdAt: "",
+};
+
+function Form({ postComments }) {
+  const [formState, setFormState] = useState(initialFormState);
+
+  const handleOnChange = ({ target: { name, value } }) => {
+    setFormState({ ...formState, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postComments(formState);
+    setFormState(initialFormState);
+  };
   return (
     <FormStyle>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="profile_url"
           placeholder="https://picsum.photos/id/1/50/50"
           required
+          value={formState.profile_url}
+          onChange={handleOnChange}
         />
         <br />
-        <input type="text" name="author" placeholder="작성자" />
+        <input
+          type="text"
+          name="author"
+          placeholder="작성자"
+          value={formState.author}
+          onChange={handleOnChange}
+        />
         <br />
-        <textarea name="content" placeholder="내용" required></textarea>
+        <textarea
+          name="content"
+          placeholder="내용"
+          required
+          value={formState.content}
+          onChange={handleOnChange}
+        ></textarea>
         <br />
-        <input type="text" name="createdAt" placeholder="2020-05-30" required />
+        <input
+          type="text"
+          name="createdAt"
+          placeholder="2020-05-30"
+          required
+          value={formState.createdAt}
+          onChange={handleOnChange}
+        />
         <br />
         <button type="submit">등록</button>
       </form>

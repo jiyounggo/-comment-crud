@@ -19,17 +19,21 @@ const Page = styled.button`
         color: #fff;
   `}
   margin-right: 3px;
+  cursor: pointer;
 `;
 
-function PageList() {
-  const pageArray = [];
-
-  pageArray.push(
-    // 임시로 페이지 하나만 설정했습니다.
-    <Page key="1">1</Page>
+function PageList({ totalPage, page, handleSetPage }) {
+  return (
+    <PageListStyle>
+      {Array(totalPage)
+        .fill(0)
+        .map((_, i) => (
+          <Page key={i + 1} onClick={() => handleSetPage(i + 1)}>
+            {i + 1}
+          </Page>
+        ))}
+    </PageListStyle>
   );
-
-  return <PageListStyle>{pageArray}</PageListStyle>;
 }
 
 export default PageList;

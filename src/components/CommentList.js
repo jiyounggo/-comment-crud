@@ -36,12 +36,23 @@ const Button = styled.div`
   }
 `;
 
-function CommentList({ comments, getComments }) {
+function CommentList({
+  offset,
+  limit,
+  comments,
+  loading,
+  getComments,
+  deleteComments,
+}) {
   useEffect(() => {
     getComments();
   }, [getComments]);
 
-  return comments.map((comment, key) => (
+  if (loading) {
+    return <p>...Loading</p>;
+  }
+
+  return comments?.slice(offset, offset + limit).map((comment, key) => (
     <Comment key={key}>
       <img src={comment.profile_url} alt="" />
 
@@ -53,7 +64,7 @@ function CommentList({ comments, getComments }) {
 
       <Button>
         <a>수정</a>
-        <a>삭제</a>
+        <a onClick={() => deleteComments(comment.id)}>삭제</a>
       </Button>
 
       <hr />
