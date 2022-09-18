@@ -42,8 +42,6 @@ export function* commentsSaga() {
   yield takeEvery(DELETE_COMMENT, deleteCommentSaga);
 }
 
-// export const goToDefaultPage = () => {}; // TODO 저장, 삭제 후 1 페이지로 이동하는 함수?
-
 /* 초기 상태 */
 const initialState = {
   comments: reducerUtils.initial(),
