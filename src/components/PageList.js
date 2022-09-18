@@ -1,15 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import { getComments } from "../api/api";
+import { PAGE_LIMIT } from "../common/constant";
+import useAxios from "../common/hooks/useAxios";
+import Error from "./Error";
+import Loading from "./Loading";
 
-function PageList() {
-  const pageArray = [];
+const getPageArray = (data) => [...Array(Math.ceil(data.length / PAGE_LIMIT))];
 
-  pageArray.push(
-    // 임시로 페이지 하나만 설정했습니다.
-    <Page key="1">1</Page>
-  );
+function PageList({ page, setPage }) {
+  const isCurrentPage = (key) => page == key;
+  const { data, loading, error } = useAxios(getComments);
 
-  return <PageListStyle>{pageArray}</PageListStyle>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
+  if (data)
+    return (
+      <PageListStyle>
+        {getPageArray(data).map((_, index) => {
+          const pageNumber = index + 1;
+          return (
+            <Page
+              key={index}
+              onClick={() => setPage(pageNumber)}
+              active={isCurrentPage(pageNumber)}
+            >
+              {pageNumber}
+            </Page>
+          );
+        })}
+      </PageListStyle>
+    );
 }
 
 export default PageList;

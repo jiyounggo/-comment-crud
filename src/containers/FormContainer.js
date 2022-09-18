@@ -12,6 +12,7 @@ function FormContainer() {
   const onSave = (comment) => {
     dispatch(saveComment(comment));
     dispatch(initTarget());
+    dispatch(setPage(1));
   };
   const onUpdate = (comment) => {
     dispatch(updateComment(comment));
@@ -19,7 +20,6 @@ function FormContainer() {
   };
   const onSetTarget = (comment) => {
     dispatch(setTarget(comment));
-    dispatch(setPage(1));
   };
 
   if (error) alert("ERROR");
