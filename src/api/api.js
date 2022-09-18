@@ -4,9 +4,10 @@ const API_URL = `${process.env.REACT_APP_API_URL}`;
 
 const api = axios.create({
   baseURL: `${API_URL}/comments`,
+  params: { _order: "desc", _sort: "id" },
 });
 
-const getComments = async () => await api.get();
+const getComments = async (params) => await api.get(``, { params });
 const saveComment = async (comment) => api.post(``, comment);
 const updateComment = async (comment) =>
   await api.put(`/${comment.id}`, comment);
