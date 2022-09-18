@@ -10,9 +10,8 @@ function CommentListContainer() {
 
   useEffect(() => {
     dispatch(getComments());
-    console.log(comments);
-  });
-  return <CommentList />;
+  }, [dispatch]);
+  return <CommentList comments={comments.data} />;
 }
 
 export default CommentListContainer;
