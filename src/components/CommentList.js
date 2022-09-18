@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function CommentList({ comments, onDelete }) {
-  const updateHandler = (e) => {};
+function CommentList({ comments, onDelete, onUpdate }) {
+  const updateHandler = (e) => {
+    onUpdate();
+  };
 
   return comments.map((comment, key) => (
     <Comment key={key}>
