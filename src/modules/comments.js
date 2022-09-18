@@ -13,7 +13,10 @@ const UPDATE_COMMENT = "UPDATE_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 
 /* 액션 생성 함수 */
-export const getComments = () => ({ type: GET_COMMENTS });
+export const getComments = (params) => ({
+  type: GET_COMMENTS,
+  payload: params,
+});
 export const saveComment = (comment) => ({
   type: SAVE_COMMENT,
   payload: comment,
