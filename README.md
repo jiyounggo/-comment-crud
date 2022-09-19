@@ -14,7 +14,7 @@
 
 <br>
 
-## 배포 링크
+## 데모 영상
 
 - https://drive.google.com/file/d/1l1UGAMUA84G6pB_HtA9rew5DXGr2LJCI/view?usp=sharing
 
