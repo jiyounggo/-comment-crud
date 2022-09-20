@@ -1,22 +1,58 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { saveComment } from '../modules/comments';
 
 function Form() {
+  const profileRef = useRef();
+  const nameRef = useRef();
+  const textRef = useRef();
+  const dateRef = useRef();
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const newComment = {
+      profile_url: profileRef.current.value,
+      author: nameRef.current.value,
+      content: textRef.current.value,
+      createdAt: dateRef.current.value,
+    };
+    dispatch(saveComment(newComment));
+    profileRef.current.value = '';
+    nameRef.current.value = '';
+    textRef.current.value = '';
+    dateRef.current.value = '';
+  };
+
   return (
     <FormStyle>
-      <form>
+      <form onSubmit={onSubmit}>
         <input
+          ref={profileRef}
           type='text'
           name='profile_url'
           placeholder='https://picsum.photos/id/1/50/50'
           required
         />
         <br />
-        <input type='text' name='author' placeholder='작성자' />
+        <input ref={nameRef} type='text' name='author' placeholder='작성자' />
         <br />
-        <textarea name='content' placeholder='내용' required></textarea>
+        <textarea
+          ref={textRef}
+          name='content'
+          placeholder='내용'
+          required
+        ></textarea>
         <br />
-        <input type='text' name='createdAt' placeholder='2020-05-30' required />
+        <input
+          ref={dateRef}
+          type='text'
+          name='createdAt'
+          placeholder='2020-05-30'
+          required
+        />
         <br />
         <button type='submit'>등록</button>
       </form>
