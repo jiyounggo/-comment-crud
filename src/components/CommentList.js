@@ -1,20 +1,7 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
-import { getComments } from '../modules/comments';
 
-function CommentList() {
-  const { data, loading, error } = useSelector((state) => state.comments);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getComments());
-  }, [dispatch]);
-
-  if (loading) return <div>로딩중...😴</div>;
-  if (error) return <div>에러 발생!</div>;
-  if (!data) return null;
-
+function CommentList({ data }) {
   return data.map((comment, key) => (
     <Comment key={key}>
       <img src={comment.profile_url} alt='' />

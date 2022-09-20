@@ -1,5 +1,18 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+
+function PageList() {
+  const pageArray = [];
+
+  pageArray.push(
+    // 임시로 페이지 하나만 설정했습니다.
+    <Page key='1'>1</Page>
+  );
+
+  return <PageListStyle>{pageArray}</PageListStyle>;
+}
+
+export default PageList;
 
 const PageListStyle = styled.div`
   margin-bottom: 20px;
@@ -20,16 +33,3 @@ const Page = styled.button`
   `}
   margin-right: 3px;
 `;
-
-function PageList() {
-  const pageArray = [];
-
-  pageArray.push(
-    // 임시로 페이지 하나만 설정했습니다.
-    <Page key="1">1</Page>
-  );
-
-  return <PageListStyle>{pageArray}</PageListStyle>;
-}
-
-export default PageList;
